@@ -1,6 +1,7 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -24,18 +25,28 @@ function Navbar() {
   };
 
   return (
-    // <div>
-    <AppBar position="static" sx={{ background: "#FFFFFF" }}>
+    <AppBar
+      position="static"
+      sx={{
+        background: "#FFFFFF",
+      }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "flex", md: "none" },
+              justifyContent: "flex-start",
+            }}
+          >
             <IconButton
-              size="large"
+              size="small"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
+              // color="inherit"
             >
               <MenuIcon />
             </IconButton>
@@ -64,57 +75,73 @@ function Navbar() {
               ))}
             </Menu>
           </Box>
-          <img src={logo} alt="logo" width={"100px"} height={"50px"} />
-
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: { xs: "none", md: "flex" },
-              justifyContent: "flex-end",
-            }}
-          >
-            {pages.map((page) => (
-              <Button
-                variant="contaoutlinedined"
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{
-                  my: 2,
-                  color: "#424242",
-                  display: "block",
-
-                  ":hover": {
-                    color: "#FF6300",
-                    textDecoration: "underline",
-                    background: "none",
-                  },
-                }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Button
-              href="/contact"
-              variant="outlined"
-              size="large"
+          <img src={logo} alt="logo" width={"100px"} height={"60px"} />
+          <Grid container display={"flex"}>
+            <Grid
               sx={{
-                borderColor: "#FF6300",
-                background: "#FF6300",
-                borderRadius: "28px",
-                color: "white",
-                ":hover": {
-                  borderColor: "#FF6300",
-                  background: "white",
-                  color: "#FF6300",
-                },
+                flexGrow: 1,
+                display: { xs: "none", md: "flex" },
+                justifyContent: "flex-end",
               }}
             >
-              get a free quote
-            </Button>
-          </Box>
+              {pages.map((page) => (
+                <Button
+                  variant="contaoutlinedined"
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    // my: 2,
+                    color: "#424242",
+                    display: "block",
+                    fontFamily: "Montserrat",
+                    fontWeight: "700",
+                    fontSize: "16px",
+                    lineHeight: "19.5px",
+                    margin: "0px 5px",
+
+                    ":hover": {
+                      color: "#FF6300",
+                      textDecoration: "underline",
+                      background: "none",
+                    },
+                  }}
+                >
+                  {page}
+                </Button>
+              ))}
+            </Grid>
+
+            <Grid
+              item
+              xs={"9"}
+              lg={"3"}
+              md={"3"}
+              display={"flex"}
+              justifyContent={"center"}
+            >
+              <Box sx={{ flexGrow: 0 }}>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  sx={{
+                    borderColor: "#FF6300",
+                    background: "#FF6300",
+                    borderRadius: "28px",
+                    whiteSpace: "nowrap",
+                    boxShadow: " 0px 12px 40px -10px rgba(255, 99, 0, 0.8)",
+                    color: "white",
+                    ":hover": {
+                      borderColor: "#FF6300",
+                      background: "white",
+                      color: "#FF6300",
+                    },
+                  }}
+                >
+                  get a free quote
+                </Button>
+              </Box>
+            </Grid>
+          </Grid>
         </Toolbar>
       </Container>
     </AppBar>
