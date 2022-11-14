@@ -1,0 +1,55 @@
+* {
+  color: #424242;
+}
+.hero {
+  width: 100vw;
+  height: 60vh;
+  background-image: url("../../assets/hero.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.looking {
+  font-family: "Poppins", Arial;
+  font-size: 60px;
+  font-weight: bolder;
+  line-height: 72px;
+  letter-spacing: 0em;
+  text-transform: uppercase;
+}
+.move {
+  font-family: "Montserrat", Arial;
+  color: #ff6300;
+  border-bottom: 6px dotted #ff6300;
+  font-weight: bolder;
+  font-size: 62px;
+  line-height: 72px;
+}
+
+.quality {
+  text-transform: capitalize;
+
+  font-family: "Montserrat", Arial;
+  /* font-style: normal; */
+  font-weight: bolder;
+  font-size: 32px;
+  line-height: 39px;
+}
+
+.hassle {
+  text-transform: initial;
+  font-family: "Montserrat", Arial;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 29px;
+  letter-spacing: 0em;
+  text-align: center;
+}
+.input_ {
+  color: #ff6300;
+  border: 1px solid white;
+  padding: 10px;
+  width: 50vw;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 53px;
+}

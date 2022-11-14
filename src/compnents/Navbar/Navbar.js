@@ -10,7 +10,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import logo from "../assets/RCS.png";
+import logo from "../../assets/RCS.png";
 
 const pages = ["Services", "About us", "Contact us"];
 function Navbar() {
@@ -27,6 +27,7 @@ function Navbar() {
   return (
     <AppBar
       position="static"
+      className="Navbar"
       sx={{
         background: "#FFFFFF",
       }}
