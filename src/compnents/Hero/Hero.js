@@ -1,7 +1,8 @@
-import React from "react";
-import { Grid, Box, Button, InputBase } from "@mui/material";
+import React, { useState } from "react";
+import { Grid, Box, Button, InputBase, TextField } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./Hero.css";
+import SimpleSnackbar from "../snackbar/Snackbar";
 
 const theme = createTheme({
   typography: {
@@ -18,6 +19,28 @@ const theme = createTheme({
 });
 
 function HeroSection() {
+  const [message, setMessage] = useState("");
+  const [snackMessage, setsnackMessage] = useState("");
+  const [openSnack, setopenSnack] = useState(false);
+  const handleChange = (event) => {
+    setMessage(event.target.value);
+  };
+  const handleClick = (event) => {
+    event.preventDefault();
+    if (!message) {
+      setsnackMessage("Tracking Id is not provided!");
+      setopenSnack(true);
+      console.log("lol it's empty");
+    } else if (Number(message)) {
+      setsnackMessage("Wrong Input!");
+      setopenSnack(true);
+      console.log("incorrect input");
+    } else {
+      console.log("handleClick 👉️", typeof message);
+      setMessage("");
+    }
+    openSnack ? setopenSnack(false) : setopenSnack(true);
+  };
   return (
     <div className="hero">
       <ThemeProvider theme={theme}>
@@ -44,53 +67,79 @@ function HeroSection() {
           </Grid>
           <Grid
             item
-            padding={"30px"}
+            justifyContent={"space-between"}
+            direction={{ xs: "column", md: "row" }}
             sx={{
               display: "flex",
-              justifyContent: "space-between",
-              width: "60vw",
-              height: "15vh",
+              width: "60%",
+              height: "100%",
             }}
           >
-            <InputBase
-              placeholder="Enter Tracking Number"
-              required
-              sx={{
-                border: "1px solid white",
-                padding: "10px 20px",
-                width: "40vw",
-                boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                borderRadius: "53px",
-                fontFamily: "Montserrat",
-                fontSize: "18px",
-                fontWeight: 400,
-                lineHeight: "20px",
-                letterSpacing: "0em",
-                textAlign: "left",
-              }}
-            />
-            <Button
-              variant="outlined"
-              size="large"
-              sx={{
-                borderColor: "#FF6300",
-                background: "#FF6300",
-                borderRadius: "40px",
-                whiteSpace: "nowrap",
-                boxShadow: " 0px 12px 40px -10px rgba(255, 99, 0, 0.8)",
-                color: "white",
-                ":hover": {
-                  borderColor: "#FF6300",
-                  background: "white",
-                  color: "#FF6300",
-                },
-              }}
+            <Grid item xs={12} md={8} margin={"10px 0"}>
+              <InputBase
+                type="number"
+                id="tracking_number"
+                name="tracking_number"
+                onChange={handleChange}
+                value={message}
+                autoComplete="off"
+                placeholder="Enter Tracking Number"
+                required
+                size="medium"
+                sx={{
+                  padding: "10px 20px",
+                  width: "100%",
+                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                  borderRadius: "53px",
+                  fontFamily: "Montserrat",
+                  fontSize: "18px",
+                  fontWeight: 400,
+                  lineHeight: "20px",
+                  letterSpacing: "0em",
+                  textAlign: "left",
+                }}
+              />
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              md={4}
+              container
+              justifyContent={"center"}
+              style={{ display: "flex" }}
+              margin={"10px 0px"}
             >
-              Track Result
-            </Button>
+              <Button
+                variant="outlined"
+                size="large"
+                onClick={handleClick}
+                sx={{
+                  padding: "10px 20px",
+                  borderColor: "#FF6300",
+                  background: "#FF6300",
+                  borderRadius: "40px",
+                  whiteSpace: "nowrap",
+                  boxShadow: " 0px 12px 40px -10px rgba(255, 99, 0, 0.8)",
+                  color: "white",
+                  ":hover": {
+                    borderColor: "#FF6300",
+                    background: "white",
+                    color: "#FF6300",
+                  },
+                }}
+              >
+                Track Result
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
       </ThemeProvider>
+
+      {openSnack ? (
+        <SimpleSnackbar open={openSnack} message={snackMessage} />
+      ) : (
+        ""
+      )}
     </div>
   );
 }

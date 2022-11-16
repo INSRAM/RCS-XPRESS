@@ -28,9 +28,7 @@
 
 .quality {
   text-transform: capitalize;
-
   font-family: "Montserrat", Arial;
-  /* font-style: normal; */
   font-weight: bolder;
   font-size: 32px;
   line-height: 39px;
@@ -52,4 +50,28 @@
   width: 50vw;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 53px;
+}
+
+@media only screen and (max-width: 600px) {
+  .looking {
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 50px;
+    letter-spacing: 0em;
+  }
+  .move {
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 50px;
+  }
+  .quality {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 30px;
+  }
+  .hassle {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 20px;
+  }
 }
