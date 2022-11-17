@@ -29,11 +29,12 @@ export default function SimpleSnackbar(props) {
       <Snackbar
         ContentProps={{
           sx: {
-            background: "#FF6300",
+            background: "linear-gradient(180deg, #FF8A00 0%, #FF6300 100%)",
           },
         }}
+        style={{ color: "red" }}
         open={open}
-        autoHideDuration={1000}
+        autoHideDuration={6000}
         onClose={handleClose}
         message={props.message}
         action={action}
