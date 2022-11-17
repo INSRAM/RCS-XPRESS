@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, Box, Button, InputBase, TextField } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./Hero.css";
@@ -31,7 +31,7 @@ function HeroSection() {
       setsnackMessage("Tracking Id is not provided!");
       setopenSnack(true);
       console.log("lol it's empty");
-    } else if (Number(message)) {
+    } else if (Number(message) < 0) {
       setsnackMessage("Wrong Input!");
       setopenSnack(true);
       console.log("incorrect input");
@@ -39,8 +39,19 @@ function HeroSection() {
       console.log("handleClick 👉️", typeof message);
       setMessage("");
     }
-    openSnack ? setopenSnack(false) : setopenSnack(true);
   };
+
+  useEffect(() => {
+    let openSnackTimeout;
+    if (openSnack) {
+      openSnackTimeout = setTimeout(() => {
+        setopenSnack(false);
+      }, 1000);
+    }
+    return () => {
+      clearTimeout(openSnackTimeout);
+    };
+  }, [openSnack]);
   return (
     <div className="hero">
       <ThemeProvider theme={theme}>
