@@ -10,9 +10,6 @@ export default function SimpleSnackbar(props) {
   const handleClose = (event, reason) => {
     setOpen(false);
   };
-  //   React.useEffect(() => {
-  //     setOpen(props.open);
-  //   }, [props.open]);
 
   const action = (
     <React.Fragment>
@@ -29,10 +26,14 @@ export default function SimpleSnackbar(props) {
 
   return (
     <div>
-      {/* <Button onClick={handleClick}>Open simple snackbar</Button> */}
       <Snackbar
+        ContentProps={{
+          sx: {
+            background: "#FF6300",
+          },
+        }}
         open={open}
-        autoHideDuration={6000}
+        autoHideDuration={1000}
         onClose={handleClose}
         message={props.message}
         action={action}

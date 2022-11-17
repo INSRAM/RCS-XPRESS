@@ -5,7 +5,18 @@ import ali_pay from "../../assets/about_us/ali_pay.png";
 import discover from "../../assets/about_us/discover.png";
 import hipercard from "../../assets/about_us/hipercard.png";
 import jcb from "../../assets/about_us/jcb.png";
-
+import { styled } from "@mui/material/styles";
+const CustomImage = styled("img")((theme) => ({
+  objectFit: "contain",
+  height: "300px",
+  "@media screen and (max-width: 768px)": {
+    height: "auto",
+    width: "100%",
+  },
+  // [theme.breakpoints.down("md")]: {
+  //   height: "100px",
+  // },
+}));
 function AboutUs() {
   return (
     <Grid
@@ -19,7 +30,7 @@ function AboutUs() {
         <Grid item xs={12}>
           <Box
             sx={{
-              width: "59px",
+              width: { xs: "40px", md: "59px" },
               height: "0px",
               border: "1px solid #FF6300",
             }}
@@ -29,8 +40,8 @@ function AboutUs() {
           <Typography
             component="div"
             fontFamily="Montserrat"
-            fontSize="36px"
-            fontWeight={800}
+            fontSize={{ xs: "24px", md: "36px" }}
+            fontWeight={{ xs: 500, md: 800 }}
             lineHeight="40px"
             letterSpacing=" 0.1em"
             textTransform={"uppercase"}
@@ -45,8 +56,8 @@ function AboutUs() {
           <Typography
             component="div"
             fontFamily="Montserrat"
-            fontSize="20px"
-            fontWeight={500}
+            fontSize={{ xs: "16px", md: "20px" }}
+            fontWeight={{ xs: 400, md: 500 }}
             lineHeight="46px"
           >
             RCS Worldwide Express (Pvt.) Ltd. is a significant player in express
@@ -60,14 +71,16 @@ function AboutUs() {
           item
           xs={12}
           sm={6}
-          padding={"20px"}
-          style={{
-            backgroundImage: `url(/aboutUs.jpeg)`,
-            height: "300px",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-          }}
-        ></Grid>
+          // padding={"20px"}
+          // style={{
+          //   backgroundImage: `url(/aboutUs.jpeg)`,
+          //   height: "300px",
+          //   backgroundSize: "cover",
+          //   backgroundRepeat: "no-repeat",
+          // }}
+        >
+          <CustomImage src="/aboutUs.jpeg" />
+        </Grid>
         <Grid
           container
           item
