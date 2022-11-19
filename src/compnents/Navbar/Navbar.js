@@ -12,7 +12,11 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import logo from "../../assets/RCS.png";
 
-const pages = ["Services", "About us", "Contact us"];
+const pages = [
+  { id: "#service", name: "Services" },
+  { id: "#about_us", name: "About us" },
+  { id: "#contact_us", name: "Contact us" },
+];
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
@@ -69,10 +73,10 @@ function Navbar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <a href="#service">
-                    <Typography textAlign="center">{page}</Typography>
+              {pages.map((page, index) => (
+                <MenuItem key={index} onClick={handleCloseNavMenu}>
+                  <a href={page.id}>
+                    <Typography textAlign="center">{page.name}</Typography>
                   </a>
                 </MenuItem>
               ))}
@@ -87,30 +91,31 @@ function Navbar() {
                 justifyContent: "flex-end",
               }}
             >
-              {pages.map((page) => (
-                <Button
-                  variant="contaoutlinedined"
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{
-                    // my: 2,
-                    color: "#424242",
-                    display: "block",
-                    fontFamily: "Montserrat",
-                    fontWeight: "700",
-                    fontSize: "16px",
-                    lineHeight: "19.5px",
-                    margin: "0px 5px",
+              {pages.map((page, index) => (
+                <a href={page.id}>
+                  <Button
+                    variant="contaoutlinedined"
+                    key={index}
+                    onClick={handleCloseNavMenu}
+                    sx={{
+                      color: "#424242",
+                      display: "block",
+                      fontFamily: "Montserrat",
+                      fontWeight: "700",
+                      fontSize: "16px",
+                      lineHeight: "19.5px",
+                      margin: "0px 5px",
 
-                    ":hover": {
-                      color: "#FF6300",
-                      textDecoration: "underline",
-                      background: "none",
-                    },
-                  }}
-                >
-                  {page}
-                </Button>
+                      ":hover": {
+                        color: "#FF6300",
+                        textDecoration: "underline",
+                        background: "none",
+                      },
+                    }}
+                  >
+                    {page.name}
+                  </Button>
+                </a>
               ))}
             </Grid>
 
