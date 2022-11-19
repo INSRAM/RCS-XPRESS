@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Box, Button, InputBase, TextField } from "@mui/material";
+import { Grid, Box, Button, InputBase } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./Hero.css";
 import SimpleSnackbar from "../snackbar/Snackbar";

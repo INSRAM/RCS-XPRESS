@@ -65,19 +65,8 @@ function AboutUs() {
               delivery solutions that map your business needs.
             </Typography>
           </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            // padding={"20px"}
-            // style={{
-            //   backgroundImage: `url(/aboutUs.jpeg)`,
-            //   height: "300px",
-            //   backgroundSize: "cover",
-            //   backgroundRepeat: "no-repeat",
-            // }}
-          >
-            <CustomImage src="/aboutUs.jpeg" />
+          <Grid item xs={12} sm={6}>
+            <CustomImage src="/about-us.jpeg" />
           </Grid>
           <Grid
             container

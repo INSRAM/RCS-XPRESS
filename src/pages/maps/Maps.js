@@ -9,6 +9,7 @@ function Maps() {
         height="300px"
         style={{ border: 0 }}
         loading="lazy"
+        title="google_Map"
       />
     </div>
   );
