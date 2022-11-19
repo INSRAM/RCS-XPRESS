@@ -14,7 +14,12 @@ function Footer() {
       >
         <Grid item container>
           <Grid item xs={12} md={6}>
-            <img src="/RCS-white.png" width={"300px"} height={"150px"} />
+            <img
+              src="/RCS-white.png"
+              alt="rcs"
+              width={"300px"}
+              height={"150px"}
+            />
             <Typography
               component="div"
               fontFamily="Montserrat"

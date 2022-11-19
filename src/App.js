@@ -1,21 +1,16 @@
 import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import AboutUs from "./pages/AboutUs/AboutUs";
-import HeroSection from "./compnents/Hero/Hero";
-import Navbar from "./compnents/Navbar/Navbar";
-import Services from "./pages/Service/Services";
-import Footer from "./compnents/footer/Footer";
-import Maps from "./pages/maps/Maps";
+import Home from "./pages/Home/Home";
+import Admin from "./pages/Admin/Admin";
 function App() {
   return (
-    <>
-      <Navbar />
-      <HeroSection />
-      <Services />
-      <AboutUs />
-      <Maps />
-      <Footer />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/admin" element={<Admin />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

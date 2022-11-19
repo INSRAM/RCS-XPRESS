@@ -15,7 +15,12 @@ import logo from "../../assets/RCS.png";
 const pages = [
   { id: "#service", name: "Services" },
   { id: "#about_us", name: "About us" },
-  { id: "#contact_us", name: "Contact us" },
+  {
+    id: "tel:+923016804252",
+    // id: "https://web.whatsapp.com/send?phone=923016804252?&text=Thank you for contacting RCS Xpress! Please let us know how we can help you.&app_absent=0",
+    // id: "https://wa.me/923016804252?text=Thank you for contacting RCS Xpress! Please let us know how we can help you.",
+    name: "Contact us",
+  },
 ];
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -51,7 +56,6 @@ function Navbar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              // color="inherit"
             >
               <MenuIcon />
             </IconButton>
@@ -76,6 +80,7 @@ function Navbar() {
               {pages.map((page, index) => (
                 <MenuItem key={index} onClick={handleCloseNavMenu}>
                   <a href={page.id}>
+                    {/* <a target="_blank" href={page.id}> */}
                     <Typography textAlign="center">{page.name}</Typography>
                   </a>
                 </MenuItem>
@@ -93,6 +98,7 @@ function Navbar() {
             >
               {pages.map((page, index) => (
                 <a href={page.id}>
+                  {/* <a href={page.id} target="_blank" > */}
                   <Button
                     variant="contaoutlinedined"
                     key={index}
