@@ -79,8 +79,10 @@ function Navbar() {
             >
               {pages.map((page, index) => (
                 <MenuItem key={index} onClick={handleCloseNavMenu}>
-                  <a href={page.id}>
-                    {/* <a target="_blank" href={page.id}> */}
+                  <a
+                    href={page.id}
+                    style={{ textDecoration: "none", color: "#424242" }}
+                  >
                     <Typography textAlign="center">{page.name}</Typography>
                   </a>
                 </MenuItem>
@@ -97,8 +99,7 @@ function Navbar() {
               }}
             >
               {pages.map((page, index) => (
-                <a href={page.id}>
-                  {/* <a href={page.id} target="_blank" > */}
+                <a href={page.id} style={{ textDecoration: "none" }}>
                   <Button
                     variant="contaoutlinedined"
                     key={index}
