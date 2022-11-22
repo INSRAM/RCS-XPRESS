@@ -18,7 +18,7 @@ import {
 
 import Logo from "../../assets/RCS.png";
 
-const drawerWidth = "200px";
+const drawerWidth = "15vw";
 
 export default function AdminDrawer() {
   const [data, setData] = React.useState([

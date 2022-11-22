@@ -1,20 +1,23 @@
 import React from "react";
-import { Box, Grid, Button } from "@mui/material";
+import { Box, Grid, Button, Drawer } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import AdminNavbar from "../Navbar/AdminNavbar";
 import AdminCards from "../Cards/AdminCards";
+import CustomerCreation from "../CustomerCreation/CustomerCreation";
+import AdminDrawer from "../Drawer/Drawer";
 function AdminSection() {
   return (
     <>
+      <AdminDrawer />
       <AdminNavbar />
       <Box
         sx={{
           float: "right",
-          width: "85%",
+          width: "80%",
         }}
       >
-        <Grid container direction={"column"}>
-          <Grid item style={{ margin: "50px 50px 0px 50px", display: "flex" }}>
+        <Grid container direction={"column"} style={{ marginTop: "50px" }}>
+          <Grid item style={{ display: "flex" }}>
             <Grid item container>
               <AdminCards />
             </Grid>
@@ -28,7 +31,7 @@ function AdminSection() {
               <AdminCards />
             </Grid>
           </Grid>
-          <Grid item style={{ margin: "50px 50px 0px 50px" }}>
+          <Grid item style={{ marginTop: "30px" }}>
             <Button
               variant="outlined"
               size="large"
@@ -54,6 +57,9 @@ function AdminSection() {
             >
               Add Customer
             </Button>
+          </Grid>
+          <Grid item style={{ marginTop: "30px", marginRight: "20px" }}>
+            <CustomerCreation />
           </Grid>
         </Grid>
       </Box>
