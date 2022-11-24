@@ -1,13 +1,18 @@
 import React from "react";
+import { useCookies } from "react-cookie";
+import Login from "../AdminLogin/AdminLogin";
 import AdminSection from "../../compnents/AdminSection/AdminSection";
-import AdminDrawer from "../../compnents/Drawer/Drawer";
+
 function Admin() {
-  return (
-    <>
-      <AdminDrawer />
-      <AdminSection />
-    </>
-  );
+  const [cookies, setCookie] = useCookies(["user"]);
+  if (cookies.user === undefined) {
+    return (
+      <>
+        <Login />
+      </>
+    );
+  }
+  return <AdminSection />;
 }
 
 export default Admin;
