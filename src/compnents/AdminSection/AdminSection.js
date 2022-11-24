@@ -1,9 +1,7 @@
 import React from "react";
-import { Box, Grid, Button, Drawer } from "@mui/material";
-import { Add } from "@mui/icons-material";
+import { Box, Grid } from "@mui/material";
 import AdminNavbar from "../Navbar/AdminNavbar";
 import AdminCards from "../Cards/AdminCards";
-import CustomerCreation from "../CustomerCreation/CustomerCreation";
 import AdminDrawer from "../Drawer/Drawer";
 function AdminSection() {
   return (
@@ -31,7 +29,7 @@ function AdminSection() {
               <AdminCards />
             </Grid>
           </Grid>
-          <Grid item style={{ marginTop: "30px" }}>
+          {/* <Grid item style={{ marginTop: "30px" }}>
             <Button
               variant="outlined"
               size="large"
@@ -57,10 +55,10 @@ function AdminSection() {
             >
               Add Customer
             </Button>
-          </Grid>
-          <Grid item style={{ marginTop: "30px", marginRight: "20px" }}>
+          </Grid> */}
+          {/* <Grid item style={{ marginTop: "30px", marginRight: "20px" }}>
             <CustomerCreation />
-          </Grid>
+          </Grid> */}
         </Grid>
       </Box>
     </>

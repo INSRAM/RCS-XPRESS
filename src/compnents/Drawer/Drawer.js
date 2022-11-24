@@ -1,19 +1,20 @@
 import * as React from "react";
+import { useCookies } from "react-cookie";
 import {
   Box,
   Drawer,
   List,
   Link,
   Typography,
-  Divider,
   ListItem,
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
 import {
   GridViewRounded,
-  PinDropRounded,
-  GroupsRounded,
+  UpgradeRounded,
+  AddRounded,
+  LogoutRounded,
 } from "@mui/icons-material";
 
 import Logo from "../../assets/RCS.png";
@@ -21,21 +22,35 @@ import Logo from "../../assets/RCS.png";
 const drawerWidth = "15vw";
 
 export default function AdminDrawer() {
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const [data, setData] = React.useState([
     {
+      id: 1,
       name: "Dashboard",
-      icon: <GridViewRounded style={{ color: "#8A92A6" }} />,
+      icon: <GridViewRounded />,
       selected: false,
+      link_: "/admin",
     },
     {
-      name: "Tracking",
-      icon: <PinDropRounded style={{ color: "#8A92A6" }} />,
+      id: 2,
+      name: "Add Shipper",
+      icon: <AddRounded fontSize="large" />,
       selected: false,
+      link_: "/admin/createshipper",
     },
     {
-      name: "Users",
-      icon: <GroupsRounded style={{ color: "#8A92A6" }} />,
+      id: 3,
+      name: "Update Shipper",
+      icon: <UpgradeRounded fontSize="large" />,
       selected: false,
+      link_: "/admin/updateshipper",
+    },
+    {
+      id: 4,
+      name: "Log Out",
+      icon: <LogoutRounded fontSize="large" />,
+      selected: false,
+      link_: "/admin",
     },
   ]);
   return (
@@ -64,51 +79,44 @@ export default function AdminDrawer() {
 
         {data.map((text, index) => {
           return (
-            <ListItem
-              selected={text.selected}
-              onClick={() => {
-                const nextList = [...data];
-                nextList.map((x) => {
-                  return (x.selected = false);
-                });
-                nextList[index].selected = true;
-                setData(nextList);
-              }}
-              button
-              key={text.name}
-              sx={{
-                color: "#8A92A6",
-
-                "&.Mui-selected": {
-                  backgroundColor: "#FF6300",
-                  color: "white",
-                  boxShadow: "0px 2px 4px rgba(138, 146, 166, 0.3)",
-                  borderRadius: "10px",
-                },
-              }}
-            >
-              <ListItemIcon style={{ minWidth: "40px" }}>
-                {text.icon}
-              </ListItemIcon>
-              <ListItemText
-                primary={
-                  <Typography
-                    style={{
-                      fontWeight: 400,
-                      fontSize: "16px",
-                      lineHeight: "175%",
-                    }}
-                  >
-                    {text.name}
-                  </Typography>
-                }
-              />
-            </ListItem>
+            <Link underline="none" href={text.link_} color={"inherit"}>
+              <ListItem
+                selected={text.selected}
+                onClick={() => {
+                  const nextList = [...data];
+                  nextList.map((x) => {
+                    return (x.selected = false);
+                  });
+                  nextList[index].selected = true;
+                  if (text.id === 4) {
+                    removeCookie("user");
+                  }
+                  setData(nextList);
+                }}
+                button
+                key={text.name}
+              >
+                <ListItemIcon style={{ minWidth: "40px" }}>
+                  {text.icon}
+                </ListItemIcon>
+                <ListItemText
+                  primary={
+                    <Typography
+                      style={{
+                        fontWeight: 400,
+                        fontSize: "16px",
+                        lineHeight: "175%",
+                      }}
+                    >
+                      {text.name}
+                    </Typography>
+                  }
+                />
+              </ListItem>
+            </Link>
           );
         })}
       </List>
-
-      <Divider />
     </Drawer>
   );
 }

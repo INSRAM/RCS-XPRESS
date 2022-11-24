@@ -1,18 +1,26 @@
 import React, { useState } from "react";
 import { Box, Grid, Input, Button } from "@mui/material";
 import AdminSection from "../../compnents/AdminSection/AdminSection";
+import { useCookies } from "react-cookie";
 
 function Login() {
   const [status, setStatus] = useState(false);
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
+  const [cookies, setCookie] = useCookies(["user"]);
 
   function handleAdmin() {
-    const userName = "salmanali";
-    const userPassword = "rcss123";
+    const userName1 = "salmanali";
+    const userName2 = "usmanali";
+    const userPassword1 = "rcss123";
+    const userPassword2 = "rcss786";
     if (!user.length || !password.length) {
       alert("User or Password cannot be empty!");
-    } else if (user === userName && password === userPassword) {
+    } else if (
+      (user === userName1 && password === userPassword1) ||
+      (user === userName2 && password === userPassword2)
+    ) {
+      setCookie("user", { name: user, password: password }, { path: "/" });
       setStatus(true);
     } else {
       alert("Wrong Credentials");

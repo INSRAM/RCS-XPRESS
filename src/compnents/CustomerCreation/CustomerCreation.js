@@ -1,17 +1,17 @@
 import React from "react";
-import { Box, Grid, Divider, Input } from "@mui/material";
+import { Box, Grid, Divider, Input, Button } from "@mui/material";
 
 function CustomerCreation() {
   return (
     <Box
-      backgroundColor={"#FFFFFF"}
-      boxShadow={"0px 10px 13px rgba(17, 38, 146, 0.05)"}
+      // backgroundColor={"#FFFFFF"}
+      // boxShadow={"0px 10px 13px rgba(17, 38, 146, 0.05)"}
       borderRadius={"8px"}
       padding={"20px"}
     >
       <Grid container direction={"column"}>
         <Grid item style={{ fontWeight: 500, fontSize: "24px" }}>
-          Create a Customer
+          Create a Shipper
         </Grid>
         <Grid item margin={"30px 0px"}>
           <Grid
@@ -495,6 +495,32 @@ function CustomerCreation() {
                 />
               </Grid>
             </Grid>
+          </Grid>
+          <Grid item conatiner textAlign={"end"}>
+            <Button
+              variant="outlined"
+              size="large"
+              sx={{
+                padding: "10px 20px",
+                borderColor: "#FF6300",
+                background: "#FF6300",
+                borderRadius: "8px",
+                whiteSpace: "nowrap",
+                boxShadow: " 0px 12px 40px -10px rgba(255, 99, 0, 0.8)",
+                color: "white",
+                width: "100px",
+                height: "54px",
+                fontWeight: 700,
+
+                ":hover": {
+                  borderColor: "#FF6300",
+                  background: "white",
+                  color: "#FF6300",
+                },
+              }}
+            >
+              Save
+            </Button>
           </Grid>
         </Grid>
       </Grid>
