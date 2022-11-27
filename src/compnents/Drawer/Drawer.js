@@ -40,7 +40,7 @@ export default function AdminDrawer() {
     },
     {
       id: 3,
-      name: "Update Shipper",
+      name: "Update Status",
       icon: <UpgradeRounded fontSize="large" />,
       selected: false,
       link_: "/admin/updateshipper",

@@ -1,9 +1,126 @@
-import React from "react";
-import { Box, Grid } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import {
+  Box,
+  Grid,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+} from "@mui/material";
+import axios from "axios";
 import AdminNavbar from "../Navbar/AdminNavbar";
 import AdminCards from "../Cards/AdminCards";
 import AdminDrawer from "../Drawer/Drawer";
+import { serverUrl } from "../../utils/constants";
+
+const columns = [
+  { id: "trackingId", label: "TrackingID", minWidth: 170 },
+  { id: "shipperName", label: "Shipper Name", minWidth: 100 },
+  {
+    id: "shipperIdCard",
+    label: "Shipper ID Card",
+    minWidth: 170,
+    align: "right",
+  },
+  {
+    id: "shipperMobile",
+    label: "Shipper Mobile",
+    minWidth: 170,
+    align: "right",
+  },
+  {
+    id: "shipperAddress",
+    label: "Shipper Address",
+    minWidth: 170,
+    align: "right",
+  },
+  {
+    id: "consigneeName",
+    label: "Consignee Name",
+    minWidth: 170,
+    align: "right",
+  },
+  {
+    id: "consigneeMobile",
+    label: "Consignee Mobile",
+    minWidth: 170,
+    align: "right",
+  },
+  {
+    id: "weight",
+    label: "weight",
+    minWidth: 170,
+    align: "right",
+  },
+  {
+    id: "dimensionsOfShipment",
+    label: "Dimensions Of Shipment",
+    minWidth: 170,
+    align: "right",
+  },
+  {
+    id: "address",
+    label: "Address",
+    minWidth: 170,
+    align: "right",
+  },
+  {
+    id: "country",
+    label: "Country",
+    minWidth: 170,
+    align: "right",
+  },
+  {
+    id: "city",
+    label: "City",
+    minWidth: 170,
+    align: "right",
+  },
+  {
+    id: "bookedBy",
+    label: "Booked By",
+    minWidth: 170,
+    align: "right",
+  },
+];
+
 function AdminSection() {
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rows, setRows] = useState(null);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+  useEffect(() => {
+    fetchShippers(); // Fetch games when component is mounted
+  }, []);
+  const fetchShippers = () => {
+    axios
+      .get(`${serverUrl}/allshippers`)
+      .then((res) => {
+        setRows(res.data);
+        console.log("this is response ==>", res);
+      })
+      .catch((err) => {
+        console.log("this is error ==>", err);
+      });
+    // fetch('http://localhost:3000/game', {
+    //   method: 'GET',
+    // })
+    //   .then((res) => res.json())
+    //   .then((result) => setData(result.rows))
+    //   .catch((err) => console.log('error'))
+  };
   return (
     <>
       <AdminDrawer />
@@ -29,36 +146,83 @@ function AdminSection() {
               <AdminCards />
             </Grid>
           </Grid>
-          {/* <Grid item style={{ marginTop: "30px" }}>
-            <Button
-              variant="outlined"
-              size="large"
-              startIcon={<Add fontSize={"large"} />}
-              sx={{
-                padding: "10px 20px",
-                borderColor: "#FF6300",
-                background: "#FF6300",
-                borderRadius: "8px",
-                whiteSpace: "nowrap",
-                boxShadow: " 0px 12px 40px -10px rgba(255, 99, 0, 0.8)",
-                color: "white",
-                width: "190px",
-                height: "54px",
-                fontWeight: 700,
-
-                ":hover": {
-                  borderColor: "#FF6300",
-                  background: "white",
-                  color: "#FF6300",
-                },
-              }}
+          <Grid item container direction={"column"}>
+            <Grid
+              margin={"30px 0px"}
+              style={{ fontWeight: 900, fontSize: "30px" }}
             >
-              Add Customer
-            </Button>
-          </Grid> */}
-          {/* <Grid item style={{ marginTop: "30px", marginRight: "20px" }}>
-            <CustomerCreation />
-          </Grid> */}
+              Users
+            </Grid>
+            {rows !== null && (
+              <Grid item container xs={12} width={"100%"} paddingRight={"30px"}>
+                <Paper
+                  sx={{
+                    width: "100%",
+                    overflow: "hidden",
+                  }}
+                >
+                  <TableContainer sx={{ maxHeight: 440 }}>
+                    <Table stickyHeader aria-label="Shippers Table">
+                      <TableHead>
+                        <TableRow>
+                          {columns.map((column) => (
+                            <TableCell
+                              key={column.id}
+                              align={column.align}
+                              style={{ minWidth: column.minWidth }}
+                            >
+                              {column.label}
+                            </TableCell>
+                          ))}
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {rows
+                          .slice(
+                            page * rowsPerPage,
+                            page * rowsPerPage + rowsPerPage
+                          )
+                          .map((row) => {
+                            return (
+                              <TableRow
+                                hover
+                                role="checkbox"
+                                tabIndex={-1}
+                                key={row.code}
+                              >
+                                {columns.map((column) => {
+                                  const value = row[column.id];
+                                  return (
+                                    <TableCell
+                                      key={column.id}
+                                      align={column.align}
+                                    >
+                                      {column.format &&
+                                      typeof value === "number"
+                                        ? column.format(value)
+                                        : value}
+                                    </TableCell>
+                                  );
+                                })}
+                              </TableRow>
+                            );
+                          })}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                  <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    count={rows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                  />
+                </Paper>
+              </Grid>
+            )}
+          </Grid>
         </Grid>
       </Box>
     </>
