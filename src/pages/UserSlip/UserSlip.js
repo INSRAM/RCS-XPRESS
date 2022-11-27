@@ -28,15 +28,33 @@ function UserSlip({ shipperData }) {
         marginTop: "40px",
       }}
     >
-      <Grid container direction={"column"}>
-        <Grid item margin={"10px 0px"}>
-          Tracking ID : {shipperData.trackingId}
-        </Grid>
-        <Grid item margin={"10px 0px"}>
-          Shipper Name : {shipperData.shipperName}
-        </Grid>
-        <Grid item margin={"10px 0px"}>
-          Consignee Name : {shipperData.consigneeName}
+      <Grid container>
+        <Grid width={"100%"} display={"flex"}>
+          <Grid item container xs={6} direction={"column"} width={"100%"}>
+            <Grid item margin={"10px 0px"}>
+              Tracking ID : {shipperData.trackingId}
+            </Grid>
+            <Grid item margin={"10px 0px"}>
+              Shipper Name : {shipperData.shipperName}
+            </Grid>
+            <Grid item margin={"10px 0px"}>
+              Consignee Name : {shipperData.consigneeName}
+            </Grid>
+          </Grid>
+          <Grid
+            xs={6}
+            justifyContent={"flex-end"}
+            display={"flex"}
+            direction={"column"}
+          >
+            <Grid item margin={"10px 0px"}>
+              Origin: {shipperData.origin ? shipperData.origin : "Nill"}
+            </Grid>
+            <Grid item margin={"10px 0px"}>
+              Destination :
+              {shipperData.destination ? shipperData.destination : "Nill"}
+            </Grid>
+          </Grid>
         </Grid>
         <Grid item width="100%">
           <Divider />

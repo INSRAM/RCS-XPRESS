@@ -18,7 +18,7 @@ const pages = [
   { id: "#about_us", name: "About us", target: "_self" },
   {
     // id: "tel:+923016804252",
-    id: "https://web.whatsapp.com/send?phone=923016804252?&text=Thank you for contacting RCS Xpress! Please let us know how we can help you.&app_absent=0",
+    id: "https://web.whatsapp.com/send?phone=923016804252?&text=Thank you for contacting RCS XPRESS! Please let us know how we can help you.&app_absent=0",
     // id: "https://wa.me/923016804252?text=Thank you for contacting RCS Xpress! Please let us know how we can help you.",
     name: "Contact us",
     target: "_blank",
