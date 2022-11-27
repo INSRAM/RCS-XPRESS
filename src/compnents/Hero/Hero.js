@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Box, Button, InputBase } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { serverUrl } from "../../utils/constants";
+import axios from "axios";
 import "./Hero.css";
 import SimpleSnackbar from "../snackbar/Snackbar";
 
@@ -18,26 +20,34 @@ const theme = createTheme({
   },
 });
 
-function HeroSection() {
+function HeroSection({ onChangeShipperState }) {
   const [message, setMessage] = useState("");
   const [snackMessage, setsnackMessage] = useState("");
   const [openSnack, setopenSnack] = useState(false);
   const handleChange = (event) => {
     setMessage(event.target.value);
   };
-  const handleClick = (event) => {
+  const handleClick = async (event) => {
     event.preventDefault();
     if (!message) {
       setsnackMessage("Tracking Id is not provided!");
       setopenSnack(true);
-      console.log("lol it's empty");
     } else if (Number(message) < 0) {
       setsnackMessage("Wrong Input!");
       setopenSnack(true);
-      console.log("incorrect input");
     } else {
-      console.log("handleClick 👉️", typeof message);
-      setMessage("");
+      axios
+        .get(`${serverUrl}/findshipper/${message}`)
+        .then(function (response) {
+          if (response.data) {
+            onChangeShipperState(response.data);
+          } else {
+            alert("Tracking ID does not exist!");
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
   };
 

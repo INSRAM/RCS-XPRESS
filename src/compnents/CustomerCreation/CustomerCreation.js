@@ -1,14 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { serverUrl } from "../../utils/constants";
 import { Box, Grid, Divider, Input, Button } from "@mui/material";
 
+const intialValues = {
+  trackingId: "",
+  shipperName: "",
+  shipperIdCard: "",
+  shipperMobile: "",
+  shipperAddress: "",
+  consigneeName: "",
+  consigneeMobile: "",
+  origin: "",
+  destination: "",
+  places: "",
+  weight: "",
+  dimensionsOfShipment: "",
+  serviceType: "",
+  shipmentType: "",
+  address: "",
+  country: "",
+  city: "",
+  state: "",
+  zipCode: "",
+  bookedBy: "",
+};
+
 function CustomerCreation() {
+  const [values, setValues] = useState(intialValues);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
+
+  const submitInputData = (event) => {
+    event.preventDefault();
+
+    axios
+      .post(`${serverUrl}/createshipper`, values)
+      .then(function (response) {
+        setValues(intialValues);
+        alert("User added successfully.");
+      })
+      .catch(function (error) {
+        alert("Check input field fill which one empty!");
+      });
+  };
   return (
-    <Box
-      // backgroundColor={"#FFFFFF"}
-      // boxShadow={"0px 10px 13px rgba(17, 38, 146, 0.05)"}
-      borderRadius={"8px"}
-      padding={"20px"}
-    >
+    <Box borderRadius={"8px"} padding={"20px"}>
       <Grid container direction={"column"}>
         <Grid item style={{ fontWeight: 500, fontSize: "24px" }}>
           Create a Shipper
@@ -47,7 +90,65 @@ function CustomerCreation() {
               <Grid item>
                 <Input
                   color="primary"
+                  type="number"
+                  value={values.trackingId}
+                  onChange={handleInputChange}
+                  name="trackingId"
                   disableUnderline
+                  style={{
+                    padding: "0px 20px",
+                    backgroundColor: "#FFFFFF",
+                    width: "250px",
+                    height: "44px",
+                    borderRadius: "4px",
+                    border: "1px solid #C7C7C7",
+                  }}
+                  onInput={(e) => {
+                    e.target.value = Math.max(0, parseInt(e.target.value))
+                      .toString()
+                      .slice(0, 10);
+                  }}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid
+            item
+            alignItems={"center"}
+            justifyContent={"center"}
+            style={{ display: "flex" }}
+          >
+            <Grid xs={2} style={{ fontWeight: 600, fontSize: "16px" }}>
+              Shipper Details
+            </Grid>
+            <Grid xs={11}>
+              <Divider />
+            </Grid>
+          </Grid>
+          <Grid
+            item
+            container
+            justifyContent={"space-between"}
+            margin={"20px 0px"}
+          >
+            <Grid item direction={"column"} margin={"20px"}>
+              <Grid
+                style={{
+                  fontWeight: 400,
+                  fontSize: "14px",
+                  lineHeight: "28px",
+                  color: "#8A92A6",
+                }}
+              >
+                Name
+              </Grid>
+              <Grid item>
+                <Input
+                  color="primary"
+                  disableUnderline
+                  onChange={handleInputChange}
+                  value={values.shipperName}
+                  name="shipperName"
                   style={{
                     padding: "0px 20px",
                     backgroundColor: "#FFFFFF",
@@ -68,12 +169,15 @@ function CustomerCreation() {
                   color: "#8A92A6",
                 }}
               >
-                From (Shipper)
+                ID Card
               </Grid>
               <Grid item>
                 <Input
                   color="primary"
                   disableUnderline
+                  onChange={handleInputChange}
+                  value={values.shipperIdCard}
+                  name="shipperIdCard"
                   style={{
                     padding: "0px 20px",
                     backgroundColor: "#FFFFFF",
@@ -94,12 +198,128 @@ function CustomerCreation() {
                   color: "#8A92A6",
                 }}
               >
-                To (Consignee)
+                Mobile
               </Grid>
               <Grid item>
                 <Input
                   color="primary"
                   disableUnderline
+                  onChange={handleInputChange}
+                  value={values.shipperMobile}
+                  name="shipperMobile"
+                  style={{
+                    padding: "0px 20px",
+                    backgroundColor: "#FFFFFF",
+                    width: "250px",
+                    height: "44px",
+                    borderRadius: "4px",
+                    border: "1px solid #C7C7C7",
+                  }}
+                />
+              </Grid>
+            </Grid>
+            <Grid
+              item
+              container
+              direction={"column"}
+              margin={"20px"}
+              width={"100%"}
+            >
+              <Grid
+                style={{
+                  fontWeight: 400,
+                  fontSize: "14px",
+                  lineHeight: "28px",
+                  color: "#8A92A6",
+                }}
+              >
+                Address
+              </Grid>
+              <Grid item>
+                <Input
+                  color="primary"
+                  disableUnderline
+                  onChange={handleInputChange}
+                  value={values.shipperAddress}
+                  name="shipperAddress"
+                  style={{
+                    padding: "0px 20px",
+                    backgroundColor: "#FFFFFF",
+                    width: "100%",
+                    height: "44px",
+                    borderRadius: "4px",
+                    border: "1px solid #C7C7C7",
+                  }}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid
+            item
+            alignItems={"center"}
+            justifyContent={"center"}
+            style={{ display: "flex" }}
+          >
+            <Grid xs={2} style={{ fontWeight: 600, fontSize: "16px" }}>
+              Consignee Details
+            </Grid>
+            <Grid xs={11}>
+              <Divider />
+            </Grid>
+          </Grid>
+          <Grid
+            item
+            container
+            // justifyContent={"space-between"}
+            margin={"20px 0px"}
+          >
+            <Grid item container xs={4} direction="column" padding={"0 20px"}>
+              <Grid
+                style={{
+                  fontWeight: 400,
+                  fontSize: "14px",
+                  lineHeight: "28px",
+                  color: "#8A92A6",
+                }}
+              >
+                Name
+              </Grid>
+              <Grid item>
+                <Input
+                  color="primary"
+                  disableUnderline
+                  onChange={handleInputChange}
+                  value={values.consigneeName}
+                  name="consigneeName"
+                  style={{
+                    padding: "0px 20px",
+                    backgroundColor: "#FFFFFF",
+                    width: "250px",
+                    height: "44px",
+                    borderRadius: "4px",
+                    border: "1px solid #C7C7C7",
+                  }}
+                />
+              </Grid>
+            </Grid>
+            <Grid item container direction="column" xs={4} padding={"0px 20px"}>
+              <Grid
+                style={{
+                  fontWeight: 400,
+                  fontSize: "14px",
+                  lineHeight: "28px",
+                  color: "#8A92A6",
+                }}
+              >
+                Mobile
+              </Grid>
+              <Grid item>
+                <Input
+                  color="primary"
+                  disableUnderline
+                  onChange={handleInputChange}
+                  value={values.consigneeMobile}
+                  name="consigneeMobile"
                   style={{
                     padding: "0px 20px",
                     backgroundColor: "#FFFFFF",
@@ -146,6 +366,9 @@ function CustomerCreation() {
                 <Input
                   color="primary"
                   disableUnderline
+                  onChange={handleInputChange}
+                  value={values.origin}
+                  name="origin"
                   style={{
                     padding: "0px 20px",
                     backgroundColor: "#FFFFFF",
@@ -172,6 +395,9 @@ function CustomerCreation() {
                 <Input
                   color="primary"
                   disableUnderline
+                  onChange={handleInputChange}
+                  value={values.destination}
+                  name="destination"
                   style={{
                     padding: "0px 20px",
                     backgroundColor: "#FFFFFF",
@@ -198,6 +424,9 @@ function CustomerCreation() {
                 <Input
                   color="primary"
                   disableUnderline
+                  onChange={handleInputChange}
+                  value={values.places}
+                  name="places"
                   style={{
                     padding: "0px 20px",
                     backgroundColor: "#FFFFFF",
@@ -224,6 +453,9 @@ function CustomerCreation() {
                 <Input
                   color="primary"
                   disableUnderline
+                  onChange={handleInputChange}
+                  value={values.weight}
+                  name="weight"
                   style={{
                     padding: "0px 20px",
                     backgroundColor: "#FFFFFF",
@@ -250,6 +482,9 @@ function CustomerCreation() {
                 <Input
                   color="primary"
                   disableUnderline
+                  onChange={handleInputChange}
+                  value={values.dimensionsOfShipment}
+                  name="dimensionsOfShipment"
                   style={{
                     padding: "0px 20px",
                     backgroundColor: "#FFFFFF",
@@ -276,6 +511,9 @@ function CustomerCreation() {
                 <Input
                   color="primary"
                   disableUnderline
+                  onChange={handleInputChange}
+                  value={values.serviceType}
+                  name="serviceType"
                   style={{
                     padding: "0px 20px",
                     backgroundColor: "#FFFFFF",
@@ -302,6 +540,9 @@ function CustomerCreation() {
                 <Input
                   color="primary"
                   disableUnderline
+                  onChange={handleInputChange}
+                  value={values.shipmentType}
+                  name="shipmentType"
                   style={{
                     padding: "0px 20px",
                     backgroundColor: "#FFFFFF",
@@ -334,6 +575,9 @@ function CustomerCreation() {
                 <Input
                   color="primary"
                   disableUnderline
+                  onChange={handleInputChange}
+                  value={values.address}
+                  name="address"
                   style={{
                     padding: "0px 20px",
                     backgroundColor: "#FFFFFF",
@@ -360,6 +604,9 @@ function CustomerCreation() {
                 <Input
                   color="primary"
                   disableUnderline
+                  onChange={handleInputChange}
+                  value={values.country}
+                  name="country"
                   style={{
                     padding: "0px 20px",
                     backgroundColor: "#FFFFFF",
@@ -386,6 +633,9 @@ function CustomerCreation() {
                 <Input
                   color="primary"
                   disableUnderline
+                  onChange={handleInputChange}
+                  value={values.city}
+                  name="city"
                   style={{
                     padding: "0px 20px",
                     backgroundColor: "#FFFFFF",
@@ -412,6 +662,9 @@ function CustomerCreation() {
                 <Input
                   color="primary"
                   disableUnderline
+                  onChange={handleInputChange}
+                  value={values.state}
+                  name="state"
                   style={{
                     padding: "0px 20px",
                     backgroundColor: "#FFFFFF",
@@ -438,6 +691,9 @@ function CustomerCreation() {
                 <Input
                   color="primary"
                   disableUnderline
+                  onChange={handleInputChange}
+                  value={values.zipCode}
+                  name="zipCode"
                   style={{
                     padding: "0px 20px",
                     backgroundColor: "#FFFFFF",
@@ -484,6 +740,9 @@ function CustomerCreation() {
                 <Input
                   color="primary"
                   disableUnderline
+                  onChange={handleInputChange}
+                  value={values.bookedBy}
+                  name="bookedBy"
                   style={{
                     padding: "0px 20px",
                     backgroundColor: "#FFFFFF",
@@ -500,6 +759,7 @@ function CustomerCreation() {
             <Button
               variant="outlined"
               size="large"
+              onClick={submitInputData}
               sx={{
                 padding: "10px 20px",
                 borderColor: "#FF6300",

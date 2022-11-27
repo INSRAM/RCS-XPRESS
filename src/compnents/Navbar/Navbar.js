@@ -10,16 +10,18 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
+import Link from "@mui/material/Link";
 import logo from "../../assets/RCS.png";
 
 const pages = [
-  { id: "#service", name: "Services" },
-  { id: "#about_us", name: "About us" },
+  { id: "#service", name: "Services", target: "_self" },
+  { id: "#about_us", name: "About us", target: "_self" },
   {
-    id: "tel:+923016804252",
-    // id: "https://web.whatsapp.com/send?phone=923016804252?&text=Thank you for contacting RCS Xpress! Please let us know how we can help you.&app_absent=0",
+    // id: "tel:+923016804252",
+    id: "https://web.whatsapp.com/send?phone=923016804252?&text=Thank you for contacting RCS Xpress! Please let us know how we can help you.&app_absent=0",
     // id: "https://wa.me/923016804252?text=Thank you for contacting RCS Xpress! Please let us know how we can help you.",
     name: "Contact us",
+    target: "_blank",
   },
 ];
 function Navbar() {
@@ -81,6 +83,7 @@ function Navbar() {
                 <MenuItem key={index} onClick={handleCloseNavMenu}>
                   <a
                     href={page.id}
+                    target={page.target}
                     style={{ textDecoration: "none", color: "#424242" }}
                   >
                     <Typography textAlign="center">{page.name}</Typography>
@@ -99,7 +102,11 @@ function Navbar() {
               }}
             >
               {pages.map((page, index) => (
-                <a href={page.id} style={{ textDecoration: "none" }}>
+                <a
+                  href={page.id}
+                  target={page.target}
+                  style={{ textDecoration: "none" }}
+                >
                   <Button
                     variant="contaoutlinedined"
                     key={index}
@@ -135,25 +142,29 @@ function Navbar() {
               justifyContent={"center"}
             >
               <Box sx={{ flexGrow: 0 }}>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  sx={{
-                    borderColor: "#FF6300",
-                    background: "#FF6300",
-                    borderRadius: "28px",
-                    whiteSpace: "nowrap",
-                    boxShadow: " 0px 12px 40px -10px rgba(255, 99, 0, 0.8)",
-                    color: "white",
-                    ":hover": {
+                {/* <a href="tel:+923016804252" style={{ textDecoration: "none" }}> */}
+                <Link href="tel:+923016804252" underline="none" color="inherit">
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    sx={{
                       borderColor: "#FF6300",
-                      background: "white",
-                      color: "#FF6300",
-                    },
-                  }}
-                >
-                  get a free quote
-                </Button>
+                      background: "#FF6300",
+                      borderRadius: "28px",
+                      whiteSpace: "nowrap",
+                      boxShadow: " 0px 12px 40px -10px rgba(255, 99, 0, 0.8)",
+                      color: "white",
+                      ":hover": {
+                        borderColor: "#FF6300",
+                        background: "white",
+                        color: "#FF6300",
+                      },
+                    }}
+                  >
+                    get a free quote
+                  </Button>
+                </Link>
+                {/* </a> */}
               </Box>
             </Grid>
           </Grid>
