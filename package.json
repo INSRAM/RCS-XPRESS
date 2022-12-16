@@ -14,7 +14,6 @@
     "mui-styles": "^5.5.0",
     "react": "^18.2.0",
     "react-circular-progressbar": "^2.1.0",
-    "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.40.0",
     "react-router-dom": "^6.4.3",

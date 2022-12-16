@@ -1,54 +1,53 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { Box, Grid, Input, Button } from "@mui/material";
-import AdminSection from "../../compnents/AdminSection/AdminSection";
-import { useCookies } from "react-cookie";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useForm } from "react-hook-form";
+import { serverUrl } from "../../utils/constants";
 
-function Login() {
-  const [status, setStatus] = useState(false);
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
-  const [cookies, setCookie] = useCookies(["user"]);
+function AdminLogin() {
+  const { register, handleSubmit, reset } = useForm();
+  const [clicked, setClicked] = useState(false);
+  let history = useNavigate();
+  const onSubmit = async (form_data) => {
+    setClicked(true);
+    axios
+      .post(`${serverUrl}/getadmin`, form_data)
+      .then(function (response) {
+        setClicked(false);
+        if (response.data) {
+          localStorage.setItem("token", response.data.token);
+          reset();
+          history.push("/admin");
+        }
+      })
+      .catch(function (error) {
+        alert("Tracking ID does not exist!");
+        setClicked(false);
+      });
+  };
 
-  function handleAdmin() {
-    const userName1 = "salmanali";
-    const userName2 = "usmanali";
-    const userPassword1 = "rcss123";
-    const userPassword2 = "rcss786";
-    if (!user.length || !password.length) {
-      alert("User or Password cannot be empty!");
-    } else if (
-      (user === userName1 && password === userPassword1) ||
-      (user === userName2 && password === userPassword2)
-    ) {
-      setCookie("user", { name: user, password: password }, { path: "/" });
-      setStatus(true);
-    } else {
-      alert("Wrong Credentials");
-    }
-    setUser("");
-    setPassword("");
-  }
-
-  if (!status) {
-    return (
+  return (
+    <Box
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      height={"100vh"}
+      width={"100%"}
+    >
       <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        height={"100vh"}
-        width={"100%"}
+        width={"30%"}
+        height={"400px"}
+        backgroundColor={"#FFFFFF"}
+        boxShadow={"0px 10px 13px rgba(17, 38, 146, 0.05)"}
+        borderRadius={"8px"}
+        padding={"20px"}
       >
-        <Box
-          width={"30%"}
-          height={"400px"}
-          backgroundColor={"#FFFFFF"}
-          boxShadow={"0px 10px 13px rgba(17, 38, 146, 0.05)"}
-          borderRadius={"8px"}
-          padding={"20px"}
-        >
-          <Box textAlign="center" padding={"10px 0"}>
-            Admin Login
-          </Box>
+        <Box textAlign="center" padding={"10px 0"}>
+          Admin Login
+        </Box>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Box height="50%">
             <Grid
               conatiner
@@ -72,8 +71,8 @@ function Login() {
                 <Grid item>
                   <Input
                     color="primary"
-                    value={user}
-                    onInput={(e) => setUser(e.target.value)}
+                    name="user"
+                    {...register("user", { required: true })}
                     disableUnderline
                     style={{
                       padding: "0px 20px",
@@ -101,9 +100,9 @@ function Login() {
                 <Grid item>
                   <Input
                     color="primary"
-                    value={password}
-                    onInput={(e) => setPassword(e.target.value)}
                     type="password"
+                    name="password"
+                    {...register("password", { required: true })}
                     disableUnderline
                     style={{
                       padding: "0px 20px",
@@ -120,7 +119,7 @@ function Login() {
                 <Button
                   variant="outlined"
                   size="large"
-                  onClick={handleAdmin}
+                  type="submit"
                   sx={{
                     padding: "10px 20px",
                     borderColor: "#FF6300",
@@ -140,16 +139,19 @@ function Login() {
                     },
                   }}
                 >
-                  LOG IN
+                  {clicked ? (
+                    <CircularProgress sx={{ color: "#FF6300" }} />
+                  ) : (
+                    "LOG IN"
+                  )}
                 </Button>
               </Grid>
             </Grid>
           </Box>
-        </Box>
+        </form>
       </Box>
-    );
-  }
-  return <AdminSection />;
+    </Box>
+  );
 }
 
-export default Login;
+export default AdminLogin;

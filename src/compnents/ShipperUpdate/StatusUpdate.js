@@ -16,11 +16,6 @@ import {
   TableRow,
 } from "@mui/material";
 
-const intialValues = {
-  city_country: "",
-  status: "",
-};
-
 function StatusUpdate({ rows }) {
   const { register, handleSubmit, reset } = useForm();
   const staric = <span style={{ color: "red" }}>*</span>;

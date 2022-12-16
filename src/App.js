@@ -5,6 +5,7 @@ import Home from "./pages/Home/Home";
 import Admin from "./pages/Admin/Admin";
 import AddShipper from "./pages/AddShipper/AddShipper";
 import UpdateShipper from "./pages/UpdateShipper/UpdateShipper";
+import AdminLogin from "./pages/AdminLogin/AdminLogin";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/createshipper" element={<AddShipper />} />
         <Route path="/admin/updateshipper" element={<UpdateShipper />} />
+        <Route path="/auth/login" element={<AdminLogin />} />
       </Routes>
     </BrowserRouter>
   );

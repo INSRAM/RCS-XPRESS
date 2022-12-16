@@ -3,85 +3,12 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { serverUrl } from "../../utils/constants";
 import StatusUpdate from "./StatusUpdate";
-import {
-  Box,
-  Grid,
-  Input,
-  Button,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
-
-const intialValues = {
-  city_country: "",
-  status: "",
-};
+import { Box, Grid, Input, Button, Paper } from "@mui/material";
 
 function ShipperUpdate() {
   const { register, handleSubmit, reset } = useForm();
-  const [value, setValue] = useState("");
   const [Shipper, setShipper] = useState(null);
-  const [InputField, setInputField] = useState(intialValues);
   const [rows, setRows] = useState([]);
-  const handleInputChange = (e) => {
-    const { value } = e.target;
-    setValue(value);
-  };
-  const searchShipper = (event) => {
-    event.preventDefault();
-    if (value.length > 0) {
-      axios
-        .get(`${serverUrl}/findshipper/${value}`)
-        .then(function (response) {
-          if (response.data !== null) {
-            setShipper(response.data);
-            setRows(response.data.status);
-          } else {
-            setShipper(null);
-            alert("Tracking ID does not exist!");
-          }
-        })
-        .catch(function (error) {
-          console.log("error ==>", error);
-        });
-    }
-  };
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setInputField({
-      ...InputField,
-      [name]: value,
-    });
-  };
-  const saveUpdate = (e) => {
-    e.preventDefault();
-    const isEmpty = Object.values(InputField).every((x) => x.length > 0);
-
-    if (isEmpty) {
-      InputField["time"] = Date.now();
-      setRows([...rows, InputField]);
-      setInputField(intialValues);
-    }
-  };
-
-  const updateStatus = (e) => {
-    e.preventDefault();
-    axios
-      .patch(`${serverUrl}/updateshipper/${Shipper.trackingId}`, rows)
-      .then(function (response) {
-        if (response.status === 200) {
-          alert("Shipper Status is updated!");
-        }
-      })
-      .catch(function (error) {
-        alert("Error in updating status!");
-      });
-  };
 
   const onSubmit = async (form_data) => {
     const value = form_data.trackingId;
@@ -104,10 +31,6 @@ function ShipperUpdate() {
     }
   };
 
-  const updateSubmission = async (updateData) => {
-    console.log("data ==> ", updateData);
-  };
-  const staric = <span style={{ color: "red" }}>*</span>;
   return (
     <Box borderRadius={"8px"} padding={"20px"}>
       <Grid container direction={"column"}>
@@ -143,7 +66,6 @@ function ShipperUpdate() {
                   placeholder="Tracking Number"
                   color="primary"
                   type="text"
-                  onChange={handleInputChange}
                   name="trackingId"
                   {...register("trackingId", { required: true })}
                   disableUnderline
