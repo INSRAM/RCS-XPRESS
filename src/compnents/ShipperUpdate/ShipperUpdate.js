@@ -1,33 +1,44 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { Box, Grid, Input, Button, Paper } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 import { serverUrl } from "../../utils/constants";
 import StatusUpdate from "./StatusUpdate";
-import { Box, Grid, Input, Button, Paper } from "@mui/material";
+import AlertDialog from "../../compnents/Modal/AlertDialog";
 
 function ShipperUpdate() {
   const { register, handleSubmit, reset } = useForm();
   const [Shipper, setShipper] = useState(null);
+  const [click, setClick] = useState(false);
   const [rows, setRows] = useState([]);
+  const [alert_, setalert] = useState(false);
 
   const onSubmit = async (form_data) => {
     const value = form_data.trackingId;
     if (value.length > 0) {
+      setClick(true);
+      setalert(false);
+      const token = localStorage.getItem("token");
       axios
-        .get(`${serverUrl}/findshipper/${value}`)
+        .get(`${serverUrl}/findshipper/${value}`, {
+          headers: {
+            Authorization: token,
+          },
+        })
         .then(function (response) {
           if (response.data !== null) {
             setShipper(response.data);
             setRows(response.data.status);
             reset();
+            setClick(false);
           } else {
             setShipper(null);
-            alert("Tracking ID does not exist!");
+            setClick(false);
+            setalert(true);
           }
         })
-        .catch(function (error) {
-          console.log("error ==>", error);
-        });
+        .catch(function (error) {});
     }
   };
 
@@ -95,7 +106,11 @@ function ShipperUpdate() {
                   },
                 }}
               >
-                Search
+                {click ? (
+                  <CircularProgress sx={{ color: "inherit" }} />
+                ) : (
+                  "Search"
+                )}
               </Button>
             </Grid>
           </Grid>
@@ -327,6 +342,9 @@ function ShipperUpdate() {
           </Grid>
         )}
       </Grid>
+      {alert_ && (
+        <AlertDialog message={"Tracking ID does not exist!"} alert={alert_} />
+      )}
     </Box>
   );
 }

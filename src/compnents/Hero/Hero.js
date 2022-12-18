@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Grid, Box, Button, InputBase } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useForm } from "react-hook-form";
 import { serverUrl } from "../../utils/constants";
+import AlertDialog from "../../compnents/Modal/AlertDialog";
 import axios from "axios";
+
 import "./Hero.css";
-import SimpleSnackbar from "../snackbar/Snackbar";
 
 const theme = createTheme({
   typography: {
@@ -21,47 +24,30 @@ const theme = createTheme({
 });
 
 function HeroSection({ onChangeShipperState }) {
-  const [message, setMessage] = useState("");
-  const [snackMessage, setsnackMessage] = useState("");
-  const [openSnack, setopenSnack] = useState(false);
-  const handleChange = (event) => {
-    setMessage(event.target.value);
-  };
-  const handleClick = async (event) => {
-    event.preventDefault();
-    if (!message) {
-      setsnackMessage("Tracking Id is not provided!");
-      setopenSnack(true);
-    } else if (Number(message) < 0) {
-      setsnackMessage("Wrong Input!");
-      setopenSnack(true);
-    } else {
-      axios
-        .get(`${serverUrl}/findshipper/${message}`)
-        .then(function (response) {
-          if (response.data) {
-            onChangeShipperState(response.data);
-          } else {
-            alert("Tracking ID does not exist!");
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
+  const { register, handleSubmit, reset } = useForm();
+  const [click, setClick] = useState(false);
+  const [alert_, setalert] = useState(false);
+
+  const trackResult = async (data_) => {
+    setClick(true);
+    setalert(false);
+    axios
+      .get(`${serverUrl}/findshipper/${data_.tracking_number}`)
+      .then(function (response) {
+        if (response.data) {
+          setClick(false);
+          onChangeShipperState(response.data);
+          reset();
+        } else {
+          setClick(false);
+          setalert(true);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
-  useEffect(() => {
-    let openSnackTimeout;
-    if (openSnack) {
-      openSnackTimeout = setTimeout(() => {
-        setopenSnack(false);
-      }, 1000);
-    }
-    return () => {
-      clearTimeout(openSnackTimeout);
-    };
-  }, [openSnack]);
   return (
     <div className="hero">
       <ThemeProvider theme={theme}>
@@ -86,80 +72,80 @@ function HeroSection({ onChangeShipperState }) {
               Your hassle-free delivery experience starts here.
             </Box>
           </Grid>
-          <Grid
-            item
-            justifyContent={"space-between"}
-            direction={{ xs: "column", md: "row" }}
-            sx={{
-              display: "flex",
-              width: "60%",
-              height: "100%",
-            }}
-          >
-            <Grid item xs={12} md={8} margin={"10px 0"}>
-              <InputBase
-                type="number"
-                id="tracking_number"
-                name="tracking_number"
-                onChange={handleChange}
-                value={message}
-                autoComplete="off"
-                placeholder="Enter Tracking Number"
-                required
-                size="medium"
-                sx={{
-                  padding: "10px 20px",
-                  width: "100%",
-                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                  borderRadius: "53px",
-                  fontFamily: "Montserrat",
-                  fontSize: "18px",
-                  fontWeight: 400,
-                  lineHeight: "20px",
-                  letterSpacing: "0em",
-                  textAlign: "left",
-                }}
-              />
-            </Grid>
+          <form onSubmit={handleSubmit(trackResult)}>
             <Grid
-              item
-              xs={12}
-              md={4}
               container
-              justifyContent={"center"}
-              style={{ display: "flex" }}
-              margin={"10px 0px"}
+              justifyContent={"space-between"}
+              direction={{ xs: "column", md: "row" }}
+              sx={{
+                display: "flex",
+                width: { xs: "350px", md: "700px" },
+                height: "100%",
+              }}
             >
-              <Button
-                variant="outlined"
-                size="large"
-                onClick={handleClick}
-                sx={{
-                  padding: "10px 20px",
-                  borderColor: "#FF6300",
-                  background: "#FF6300",
-                  borderRadius: "40px",
-                  whiteSpace: "nowrap",
-                  boxShadow: " 0px 12px 40px -10px rgba(255, 99, 0, 0.8)",
-                  color: "white",
-                  ":hover": {
-                    borderColor: "#FF6300",
-                    background: "white",
-                    color: "#FF6300",
-                  },
-                }}
+              <Grid item xs={12} md={8} margin={"10px 0"}>
+                <InputBase
+                  name="tracking_number"
+                  {...register("tracking_number", { required: true })}
+                  placeholder="Enter Tracking Number"
+                  size="medium"
+                  sx={{
+                    padding: "10px 20px",
+                    width: "100%",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    borderRadius: "53px",
+                    fontFamily: "Montserrat",
+                    fontSize: "18px",
+                    fontWeight: 400,
+                    lineHeight: "20px",
+                    letterSpacing: "0em",
+                    textAlign: "left",
+                  }}
+                />
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                md={4}
+                container
+                justifyContent={"center"}
+                alignItems={"center"}
+                style={{ display: "flex" }}
+                margin={"10px 0px"}
               >
-                Track Result
-              </Button>
+                <Button
+                  variant="outlined"
+                  type="submit"
+                  sx={{
+                    width: "150px",
+                    height: "50px",
+                    padding: "10px 20px",
+                    borderColor: "#FF6300",
+                    background: "#FF6300",
+                    borderRadius: "40px",
+                    whiteSpace: "nowrap",
+                    boxShadow: " 0px 12px 40px -10px rgba(255, 99, 0, 0.8)",
+                    color: "white",
+                    ":hover": {
+                      borderColor: "#FF6300",
+                      background: "white",
+                      color: "#FF6300",
+                    },
+                  }}
+                >
+                  {click ? (
+                    <CircularProgress sx={{ color: "inherit" }} />
+                  ) : (
+                    "Track Result"
+                  )}
+                </Button>
+              </Grid>
             </Grid>
-          </Grid>
+          </form>
         </Grid>
       </ThemeProvider>
-
-      {openSnack ? (
-        <SimpleSnackbar open={openSnack} message={snackMessage} />
-      ) : (
-        ""
+      {alert_ && (
+        <AlertDialog message={"Tracking ID does not exist!"} alert={alert_} />
       )}
     </div>
   );

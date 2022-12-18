@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { serverUrl } from "../../utils/constants";
+import CircularProgress from "@mui/material/CircularProgress";
 import { Box, Grid, Divider, Input, Button } from "@mui/material";
+import AlertDialog from "../../compnents/Modal/AlertDialog";
 
 function CustomerCreation() {
+  const [click, setClick] = useState(false);
+  const [alert_, setalert] = useState(false);
   const preloadedValue = {
     trackingId: Math.floor(
       Math.random() * Math.floor(Math.random() * Date.now())
@@ -15,16 +19,21 @@ function CustomerCreation() {
   });
 
   const onSubmit = async (form_data) => {
+    setClick(true);
+    setalert(false);
+    const token = localStorage.getItem("token");
     axios
-      .post(`${serverUrl}/createshipper`, form_data)
-      .then(function (response) {
-        // setValues(intialValues);
-        reset();
-        alert("User added successfully.");
+      .post(`${serverUrl}/createshipper`, form_data, {
+        headers: {
+          Authorization: token,
+        },
       })
-      .catch(function (error) {
-        alert("Check input field fill which one empty!");
-      });
+      .then(function (response) {
+        reset();
+        setClick(false);
+        setalert(true);
+      })
+      .catch(function (error) {});
   };
   const staric = <span style={{ color: "red" }}>*</span>;
   return (
@@ -739,12 +748,19 @@ function CustomerCreation() {
                   },
                 }}
               >
-                Save
+                {click ? (
+                  <CircularProgress sx={{ color: "inherit" }} />
+                ) : (
+                  "Save"
+                )}
               </Button>
             </Grid>
           </Grid>
         </form>
       </Grid>
+      {alert_ && (
+        <AlertDialog message={"User added successfully."} alert={alert_} />
+      )}
     </Box>
   );
 }

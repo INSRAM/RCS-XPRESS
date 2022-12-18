@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Box, Grid, Input, Button } from "@mui/material";
@@ -9,7 +9,15 @@ import { serverUrl } from "../../utils/constants";
 function AdminLogin() {
   const { register, handleSubmit, reset } = useForm();
   const [clicked, setClicked] = useState(false);
-  let history = useNavigate();
+  let navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    if (token) {
+      navigate("/admin", { replace: true });
+    }
+  }, []);
+
   const onSubmit = async (form_data) => {
     setClicked(true);
     axios
@@ -19,12 +27,13 @@ function AdminLogin() {
         if (response.data) {
           localStorage.setItem("token", response.data.token);
           reset();
-          history.push("/admin");
+          navigate("/admin", { replace: true });
         }
       })
       .catch(function (error) {
-        alert("Tracking ID does not exist!");
         setClicked(false);
+        console.log("this is error  ===> ", error);
+        alert("Tracking ID does not exist!");
       });
   };
 
@@ -140,7 +149,7 @@ function AdminLogin() {
                   }}
                 >
                   {clicked ? (
-                    <CircularProgress sx={{ color: "#FF6300" }} />
+                    <CircularProgress sx={{ color: "inherit" }} />
                   ) : (
                     "LOG IN"
                   )}

@@ -12,6 +12,7 @@ import {
   TableRow,
 } from "@mui/material";
 import axios from "axios";
+import CircularProgress from "@mui/material/CircularProgress";
 import AdminNavbar from "../Navbar/AdminNavbar";
 import AdminCards from "../Cards/AdminCards";
 import AdminDrawer from "../Drawer/Drawer";
@@ -105,21 +106,19 @@ function AdminSection() {
     fetchShippers(); // Fetch games when component is mounted
   }, []);
   const fetchShippers = () => {
+    const token = localStorage.getItem("token");
     axios
-      .get(`${serverUrl}/allshippers`)
+      .get(`${serverUrl}/allshippers`, {
+        headers: {
+          Authorization: token,
+        },
+      })
       .then((res) => {
         setRows(res.data);
-        console.log("this is response ==>", res);
       })
       .catch((err) => {
         console.log("this is error ==>", err);
       });
-    // fetch('http://localhost:3000/game', {
-    //   method: 'GET',
-    // })
-    //   .then((res) => res.json())
-    //   .then((result) => setData(result.rows))
-    //   .catch((err) => console.log('error'))
   };
   return (
     <>
@@ -153,7 +152,7 @@ function AdminSection() {
             >
               Users
             </Grid>
-            {rows !== null && (
+            {rows !== null ? (
               <Grid item container xs={12} width={"100%"} paddingRight={"30px"}>
                 <Paper
                   sx={{
@@ -221,6 +220,10 @@ function AdminSection() {
                   />
                 </Paper>
               </Grid>
+            ) : (
+              <div style={{ textAlign: "center" }}>
+                <CircularProgress sx={{ color: "inherit" }} />
+              </div>
             )}
           </Grid>
         </Grid>

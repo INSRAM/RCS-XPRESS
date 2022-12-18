@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useForm } from "react-hook-form";
-import { serverUrl } from "../../utils/constants";
 import {
-  Box,
   Grid,
   Input,
   Button,

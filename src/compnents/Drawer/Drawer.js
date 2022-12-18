@@ -1,15 +1,14 @@
 import * as React from "react";
-import { useCookies } from "react-cookie";
 import {
   Box,
   Drawer,
   List,
-  Link,
   Typography,
   ListItem,
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import {
   GridViewRounded,
   UpgradeRounded,
@@ -22,7 +21,6 @@ import Logo from "../../assets/RCS.png";
 const drawerWidth = "15vw";
 
 export default function AdminDrawer() {
-  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const [data, setData] = React.useState([
     {
       id: 1,
@@ -50,7 +48,7 @@ export default function AdminDrawer() {
       name: "Log Out",
       icon: <LogoutRounded fontSize="large" />,
       selected: false,
-      link_: "/admin",
+      link_: "/",
     },
   ]);
   return (
@@ -72,16 +70,18 @@ export default function AdminDrawer() {
             margin: "20px",
           }}
         >
-          <Link underline="none" href="/admin">
+          <Link to="/admin">
             <img src={Logo} alt="logo" width={"95px"} height={"52px"} />
           </Link>
         </Box>
 
         {data.map((text, index) => {
           return (
-            <Link underline="none" href={text.link_} color={"inherit"}>
+            <Link
+              to={text.link_}
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
               <ListItem
-                selected={text.selected}
                 onClick={() => {
                   const nextList = [...data];
                   nextList.map((x) => {
@@ -89,11 +89,10 @@ export default function AdminDrawer() {
                   });
                   nextList[index].selected = true;
                   if (text.id === 4) {
-                    removeCookie("user");
+                    localStorage.removeItem("token");
                   }
                   setData(nextList);
                 }}
-                button
                 key={text.name}
               >
                 <ListItemIcon style={{ minWidth: "40px" }}>
