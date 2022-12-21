@@ -2,14 +2,14 @@ const ServiceData = [
   {
     title: "INTERNATIONAL SERVICE",
     description:
-      "Reaching our customers and providers internationally service. Whether you need an economical shipping option or the fastest possible service for urgent shipments, we can provide a solution for international shipments of any size.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.",
     img: "/service/internation service.png",
   },
 
   {
     title: "Same Day Delivery",
     description:
-      "RCS is a highly reliable courier company that provides Same Day delivery services to send parcels and documents within the same city. Same Day cash on delivery rates apply to every order as per account/standard on delivery demand.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.",
     img: "/service/SAME DAY DELIVERY.png",
   },
   {

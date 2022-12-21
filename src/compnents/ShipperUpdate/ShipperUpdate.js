@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Box, Grid, Input, Button, Paper } from "@mui/material";
@@ -13,10 +13,14 @@ function ShipperUpdate() {
   const [click, setClick] = useState(false);
   const [rows, setRows] = useState([]);
   const [alert_, setalert] = useState(false);
-
+  const [value, setvalue] = useState(null);
+  const [recall, setrecall] = useState(false);
   const onSubmit = async (form_data) => {
-    const value = form_data.trackingId;
-    if (value.length > 0) {
+    setvalue(form_data.trackingId);
+  };
+
+  useEffect(() => {
+    if (value) {
       setClick(true);
       setalert(false);
       const token = localStorage.getItem("token");
@@ -40,8 +44,7 @@ function ShipperUpdate() {
         })
         .catch(function (error) {});
     }
-  };
-
+  }, [value, recall]);
   return (
     <Box borderRadius={"8px"} padding={"20px"}>
       <Grid container direction={"column"}>
@@ -338,7 +341,13 @@ function ShipperUpdate() {
               </Grid>
             </Grid>
             {/* status update */}
-            <StatusUpdate rows={rows} />
+            <StatusUpdate
+              rows={rows}
+              trackingId={value}
+              recall={() => {
+                recall ? setrecall(false) : setrecall(true);
+              }}
+            />
           </Grid>
         )}
       </Grid>

@@ -24,7 +24,7 @@ function UserSlip({ shipperData }) {
         background: "white",
         borderRadius: "4px",
         boxShadow: "0px 32px 54px -12px rgba(16, 24, 40, 0.14)",
-        border: "0.5px solid black",
+        border: "2px solid #FF6300",
         marginTop: "40px",
       }}
     >

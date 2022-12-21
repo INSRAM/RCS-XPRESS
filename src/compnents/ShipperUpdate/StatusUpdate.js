@@ -12,12 +12,36 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import axios from "axios";
+import { serverUrl } from "../../utils/constants";
+import AlertDialog from "../../compnents/Modal/AlertDialog";
 
-function StatusUpdate({ rows }) {
+function StatusUpdate({ rows, trackingId, recall }) {
   const { register, handleSubmit, reset } = useForm();
+  const [alert_, setalert] = useState(false);
   const staric = <span style={{ color: "red" }}>*</span>;
   const updateSubmission = async (form_data) => {
-    console.log("for data ==>", form_data);
+    form_data["time"] = Date.now();
+    rows.push(form_data);
+    setalert(false);
+    const token = localStorage.getItem("token");
+    axios
+      .patch(`${serverUrl}/updateshipper/${trackingId}`, rows, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then(function (response) {
+        reset();
+        recall();
+        setalert(true);
+        // if (response.status === 200) {
+        //   alert("Shipper Status is updated!");
+        // }
+      })
+      .catch(function (error) {
+        alert("Error in updating status!");
+      });
   };
   return (
     <div>
@@ -25,7 +49,6 @@ function StatusUpdate({ rows }) {
         <Grid item style={{ fontWeight: 500, fontSize: "24px" }}>
           Update Status
         </Grid>
-        {/* <StatusUpdate /> */}
         <form onSubmit={handleSubmit(updateSubmission)}>
           <Grid
             item
@@ -118,7 +141,7 @@ function StatusUpdate({ rows }) {
                     },
                   }}
                 >
-                  Save
+                  Update
                 </Button>
               </Grid>
             </Grid>
@@ -147,33 +170,9 @@ function StatusUpdate({ rows }) {
           </Table>
         </TableContainer>
       </Grid>
-      <Grid margin={"40px 20px"} justifyContent={"flex-end"} display={"flex"}>
-        <Button
-          variant="outlined"
-          //   onClick={updateStatus}
-          size="large"
-          sx={{
-            padding: "10px 20px",
-            borderColor: "#FF6300",
-            background: "#FF6300",
-            borderRadius: "8px",
-            whiteSpace: "nowrap",
-            boxShadow: " 0px 12px 40px -10px rgba(255, 99, 0, 0.8)",
-            color: "white",
-            width: "200px",
-            height: "54px",
-            fontWeight: 700,
-
-            ":hover": {
-              borderColor: "#FF6300",
-              background: "white",
-              color: "#FF6300",
-            },
-          }}
-        >
-          Update
-        </Button>
-      </Grid>
+      {alert_ && (
+        <AlertDialog message={"Shipper Status is updated."} alert={alert_} />
+      )}
     </div>
   );
 }
