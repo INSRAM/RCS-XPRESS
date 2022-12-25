@@ -67,8 +67,8 @@ function UserSlip({ shipperData }) {
                 <TableRow>
                   <TableCell>City/Country</TableCell>
                   <TableCell align="right">Status</TableCell>
-                  <TableCell align="right">Date</TableCell>
                   <TableCell align="right">Time</TableCell>
+                  <TableCell align="right">Date</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -79,10 +79,10 @@ function UserSlip({ shipperData }) {
                     </TableCell>
                     <TableCell align="right">{row.status}</TableCell>
                     <TableCell align="right">
-                      {new Date(row.time).toLocaleDateString()}
+                      {new Date(row.time).toLocaleTimeString()}
                     </TableCell>
                     <TableCell align="right">
-                      {new Date(row.time).toLocaleTimeString()}
+                      {new Date(row.time).toLocaleDateString()}
                     </TableCell>
                   </TableRow>
                 ))}
