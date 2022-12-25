@@ -40,7 +40,7 @@ function StatusUpdate({ rows, trackingId, recall }) {
         // }
       })
       .catch(function (error) {
-        alert("Error in updating status!");
+        // alert("Error in updating status!");
       });
   };
   return (

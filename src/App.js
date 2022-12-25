@@ -16,25 +16,25 @@ function App() {
         <Route
           path="/admin"
           element={
-            <AuthLogin>
-              <Admin />
-            </AuthLogin>
+            // <AuthLogin>
+            <Admin />
+            //</AuthLogin>
           }
         />
         <Route
           path="/admin/createshipper"
           element={
-            <AuthLogin>
-              <AddShipper />
-            </AuthLogin>
+            // <AuthLogin>
+            <AddShipper />
+            //</AuthLogin>
           }
         />
         <Route
           path="/admin/updateshipper"
           element={
-            <AuthLogin>
-              <UpdateShipper />
-            </AuthLogin>
+            // <AuthLogin>
+            <UpdateShipper />
+            //</AuthLogin>
           }
         />
         <Route path="/auth/login" element={<AdminLogin />} />

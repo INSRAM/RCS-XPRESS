@@ -16,13 +16,16 @@ function AuthLogin({ children }) {
         })
         .then((res) => {
           if (res.status === 200) {
+            console.log("this is response ==> ", res);
             setVerify(true);
           }
         })
         .catch((err) => {
+          console.log("this is error ==> ", err);
           navigate("/auth/login", { replace: true });
         });
     } else {
+      console.log("problem ===> ");
       navigate("/auth/login", { replace: true });
     }
   }, [token]);
