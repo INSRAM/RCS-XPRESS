@@ -114,7 +114,12 @@ function AdminSection() {
         },
       })
       .then((res) => {
-        setRows(res.data);
+        const data = res.data;
+        data.sort(
+          (a, b) =>
+            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+        );
+        setRows(data);
       })
       .catch((err) => {
         console.log("this is error ==>", err);
