@@ -9,10 +9,12 @@ import AlertDialog from "../../compnents/Modal/AlertDialog";
 function CustomerCreation() {
   const [click, setClick] = useState(false);
   const [alert_, setalert] = useState(false);
+  const trackingId_ = Math.floor(
+    Math.random() * Math.floor(Math.random() * Date.now())
+  );
+  // trackingId_.toString()
   const preloadedValue = {
-    trackingId: Math.floor(
-      Math.random() * Math.floor(Math.random() * Date.now())
-    ),
+    trackingId: trackingId_.toString().slice(0, 8),
   };
   const { register, handleSubmit, reset } = useForm({
     defaultValues: preloadedValue,
