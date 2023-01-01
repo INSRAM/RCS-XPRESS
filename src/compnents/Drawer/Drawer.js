@@ -71,7 +71,13 @@ export default function AdminDrawer() {
           }}
         >
           <Link to="/admin">
-            <img src={Logo} alt="logo" width={"95px"} height={"52px"} />
+            <img
+              src={Logo}
+              alt="logo"
+              width={"150px"}
+              height={"100px"}
+              style={{ objectFit: "contain" }}
+            />
           </Link>
         </Box>
 

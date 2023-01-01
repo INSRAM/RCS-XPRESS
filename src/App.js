@@ -44,3 +44,22 @@ function App() {
 }
 
 export default App;
+
+// import React from "react";
+// import Ticker from "react-ticker";
+
+// export default function App() {
+//   return (
+{
+  /* <Ticker offset="run-in" speed={10} move={true}>
+    {({ index }) => (
+      <>
+        <h1 style={{ paddingRight: "0.5em", background: "red" }}>
+          This is the Headline of element #{index}!
+        </h1>
+      </>
+    )}
+  </Ticker> */
+}
+//   );
+// }

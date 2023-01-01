@@ -13,6 +13,7 @@
     "axios": "^1.2.0",
     "mui-styles": "^5.5.0",
     "react": "^18.2.0",
+    "react-advanced-news-ticker": "^1.0.1",
     "react-circular-progressbar": "^2.1.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.40.0",
