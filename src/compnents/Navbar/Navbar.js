@@ -92,7 +92,14 @@ function Navbar() {
               ))}
             </Menu>
           </Box>
-          <img src={logo} alt="logo" width={"100px"} height={"60px"} />
+          <img
+            src={logo}
+            alt="logo"
+            style={{ objectFit: "contain" }}
+            width={"150px"}
+            height={"60px"}
+          />
+
           <Grid container display={"flex"}>
             <Grid
               sx={{
@@ -142,7 +149,6 @@ function Navbar() {
               justifyContent={"center"}
             >
               <Box sx={{ flexGrow: 0 }}>
-                {/* <a href="tel:+923016804252" style={{ textDecoration: "none" }}> */}
                 <Link href="tel:+923016804252" underline="none" color="inherit">
                   <Button
                     variant="outlined"
@@ -164,7 +170,6 @@ function Navbar() {
                     get a free quote
                   </Button>
                 </Link>
-                {/* </a> */}
               </Box>
             </Grid>
           </Grid>

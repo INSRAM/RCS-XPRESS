@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import { serverUrl } from "../../utils/constants";
 import AlertDialog from "../../compnents/Modal/AlertDialog";
 import axios from "axios";
-
 import "./Hero.css";
 
 const theme = createTheme({
@@ -144,6 +143,7 @@ function HeroSection({ onChangeShipperState }) {
           </form>
         </Grid>
       </ThemeProvider>
+
       {alert_ && (
         <AlertDialog message={"Tracking ID does not exist!"} alert={alert_} />
       )}

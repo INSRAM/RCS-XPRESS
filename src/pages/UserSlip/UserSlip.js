@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 
 function UserSlip({ shipperData }) {
-  const [rows, setRows] = useState(shipperData.status);
+  const rows = shipperData.status;
   return (
     <Box
       width={"80vw"}

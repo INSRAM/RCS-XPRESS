@@ -1,18 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useReactToPrint } from "react-to-print";
 import { serverUrl } from "../../utils/constants";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Box, Grid, Divider, Input, Button } from "@mui/material";
 import AlertDialog from "../../compnents/Modal/AlertDialog";
 
+import Print from "../Print/Print";
+
 function CustomerCreation() {
   const [click, setClick] = useState(false);
   const [alert_, setalert] = useState(false);
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
   const trackingId_ = Math.floor(
     Math.random() * Math.floor(Math.random() * Date.now())
   );
-  // trackingId_.toString()
+
   const preloadedValue = {
     trackingId: trackingId_.toString().slice(0, 8),
   };
@@ -21,6 +29,7 @@ function CustomerCreation() {
   });
 
   const onSubmit = async (form_data) => {
+    // handlePrint();
     setClick(true);
     setalert(false);
     const token = localStorage.getItem("token");
@@ -732,6 +741,7 @@ function CustomerCreation() {
                 variant="outlined"
                 size="large"
                 type="submit"
+                // onClick={handlePrint}
                 sx={{
                   padding: "10px 20px",
                   borderColor: "#FF6300",
@@ -760,6 +770,10 @@ function CustomerCreation() {
           </Grid>
         </form>
       </Grid>
+      <div style={{ display: "none" }}>
+        <Print ref={componentRef} />
+        {/* <Print ref={(el) => (componentRef = el)} /> */}
+      </div>
       {alert_ && (
         <AlertDialog message={"User added successfully."} alert={alert_} />
       )}
