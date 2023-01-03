@@ -34,7 +34,7 @@ function Home() {
         <marquee width="100%" direction="left" height="20px" background="red">
           <div style={{ color: "#ff8a00" }}>
             This is a sample scrolling text that has scrolls in the upper
-            direction.
+            direction. I am looking into it
           </div>
         </marquee>
       </div>
