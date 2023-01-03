@@ -8,7 +8,6 @@ import Footer from "../../compnents/footer/Footer";
 import Maps from "../maps/Maps";
 import UserSlip from "../UserSlip/UserSlip";
 import axios from "axios";
-import "./style.css";
 function Home() {
   const [Shipper, setShipper] = useState(null);
   const onChangeShipperState = (shipperData) => {
@@ -24,30 +23,22 @@ function Home() {
       })
       .then((res) => {
         if (res.status === 200) {
-          // console.log("this is response ==> ", res);
-          // setVerify(true);
         }
       })
-      .catch((err) => {
-        // console.log("this is error ==> ", err);
-        // navigate("/auth/login", { replace: true });
-      });
+      .catch((err) => {});
   }, []);
   return (
     <>
       <Navbar />
-      <div class="hwrap">
-        <div class="hmove">
-          <div class="hitem">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      <div style={{ background: "#ff2d001f", marginTop: "2px" }}>
+        <marquee width="100%" direction="left" height="20px" background="red">
+          <div style={{ color: "#ff8a00" }}>
+            This is a sample scrolling text that has scrolls in the upper
+            direction.
           </div>
-          <div class="hitem">Aliquam consequat varius consequat.</div>
-          <div class="hitem">
-            Fusce dapibus turpis vel nisi malesuada sollicitudin.
-          </div>
-          <div class="hitem">Pellentesque auctor molestie orci ut blandit.</div>
-        </div>
+        </marquee>
       </div>
+
       <HeroSection onChangeShipperState={onChangeShipperState} />
       {Shipper !== null && <UserSlip shipperData={Shipper} />}
       <Services />

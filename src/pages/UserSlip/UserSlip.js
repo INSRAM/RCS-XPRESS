@@ -1,19 +1,8 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Divider,
-  Grid,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-} from "@mui/material";
+import React from "react";
+import { Box, Divider, Grid, Card } from "@mui/material";
 
 function UserSlip({ shipperData }) {
-  const rows = shipperData.status;
+  let rows = shipperData.status;
   return (
     <Box
       width={"80vw"}
@@ -60,35 +49,65 @@ function UserSlip({ shipperData }) {
           <Divider />
         </Grid>
         <Grid item margin={"30px 0px"} width="100%">
-          <h3>Shipment Update</h3>
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>City/Country</TableCell>
-                  <TableCell align="right">Status</TableCell>
-                  <TableCell align="right">Time</TableCell>
-                  <TableCell align="right">Date</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow key={row.city_country}>
-                    <TableCell component="th" scope="row">
-                      {row.city_country}
-                    </TableCell>
-                    <TableCell align="right">{row.status}</TableCell>
-                    <TableCell align="right">
-                      {new Date(row.time).toLocaleTimeString()}
-                    </TableCell>
-                    <TableCell align="right">
-                      {new Date(row.time).toLocaleDateString()}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <h2>Shipment Update</h2>
+          <Card>
+            <Box sx={{ width: "100%", padding: "20px 0px" }}>
+              <Grid container>
+                <Grid
+                  item
+                  container
+                  display={"flex"}
+                  fontSize="20px"
+                  fontWeight={700}
+                >
+                  <Grid item xs={5} paddingLeft="10px">
+                    City/Country
+                  </Grid>
+                  <Grid item xs={3}>
+                    Status
+                  </Grid>
+                  <Grid item xs={2} style={{ textAlign: "center" }}>
+                    Time
+                  </Grid>
+                  <Grid item xs={2} style={{ textAlign: "center" }}>
+                    Date
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Divider />
+                  </Grid>
+                </Grid>
+
+                {rows.map((row) => {
+                  return (
+                    <Grid
+                      item
+                      container
+                      display={"flex"}
+                      fontSize="14px"
+                      fontWeight={700}
+                      marginTop={"30px"}
+                    >
+                      <Grid item xs={5} paddingLeft="10px">
+                        {row.city_country}
+                      </Grid>
+                      <Grid item xs={3}>
+                        {row.status}
+                      </Grid>
+                      <Grid item xs={2} style={{ textAlign: "center" }}>
+                        {new Date(row.time).toLocaleTimeString()}
+                      </Grid>
+                      <Grid item xs={2} style={{ textAlign: "center" }}>
+                        {new Date(row.time).toLocaleDateString()}
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Divider />
+                      </Grid>
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            </Box>
+          </Card>
         </Grid>
       </Grid>
     </Box>
