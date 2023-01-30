@@ -12,6 +12,7 @@ import Print from "../Print/Print";
 function CustomerCreation() {
   const [click, setClick] = useState(false);
   const [alert_, setalert] = useState(false);
+  const [formData, setFormData] = useState(null);
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -23,12 +24,32 @@ function CustomerCreation() {
 
   const preloadedValue = {
     trackingId: trackingId_.toString().slice(0, 8),
+    shipperName: "test",
+    shipperIdCard: "test",
+    shipperMobile: "test",
+    shipperAddress: "test",
+    consigneeName: "test",
+    consigneeMobile: "test",
+    origin: "test",
+    destination: "test",
+    weight: "test",
+    dimensionsOfShipment: "test",
+    serviceType: "test",
+    zipCode: "test",
+    state: "test",
+    country: "test",
+    city: "test",
+    address: "test",
+    shipmentType: "test",
+    serviceType: "test",
   };
   const { register, handleSubmit, reset } = useForm({
     defaultValues: preloadedValue,
   });
 
   const onSubmit = async (form_data) => {
+    setFormData(form_data);
+
     // handlePrint();
     setClick(true);
     setalert(false);
@@ -400,35 +421,7 @@ function CustomerCreation() {
                   />
                 </Grid>
               </Grid>
-              {/* <Grid item direction={"column"} margin={"20px"}>
-                <Grid
-                  style={{
-                    fontWeight: 400,
-                    fontSize: "14px",
-                    lineHeight: "28px",
-                    color: "#8A92A6",
-                  }}
-                >
-                  Places
-                </Grid>
-                <Grid item>
-                  <Input
-                    color="primary"
-                    disableUnderline
-                    onChange={handleInputChange}
-                    value={values.places}
-                    name="places"
-                    style={{
-                      padding: "0px 20px",
-                      backgroundColor: "#FFFFFF",
-                      width: "250px",
-                      height: "44px",
-                      borderRadius: "4px",
-                      border: "1px solid #C7C7C7",
-                    }}
-                  />
-                </Grid>
-              </Grid> */}
+
               <Grid item direction={"column"} margin={"20px"}>
                 <Grid
                   style={{
@@ -771,7 +764,7 @@ function CustomerCreation() {
         </form>
       </Grid>
       <div style={{ display: "none" }}>
-        <Print ref={componentRef} />
+        {formData && <Print ref={componentRef} data={formData} />}
         {/* <Print ref={(el) => (componentRef = el)} /> */}
       </div>
       {alert_ && (

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Box, Grid, Typography } from "@mui/material";
+import Logo1 from "../../assets/RCS 1.png";
 class Print extends Component {
   render() {
+    const data = this.props.data;
     return (
       <Box
         height={"100%"}
@@ -14,7 +16,9 @@ class Print extends Component {
           <Grid item container xs={6} direction={"column"}>
             <Grid item container border={"1px solid black"}>
               <Grid item padding={"5px"}>
-                <Typography sx={{ fontSize: "20px" }}>Tracking ID: </Typography>
+                <Typography sx={{ fontSize: "20px" }}>
+                  Tracking ID: {data.trackingId}
+                </Typography>
               </Grid>
             </Grid>
             <Grid item container>
@@ -131,12 +135,87 @@ class Print extends Component {
                 </Grid>
               </Grid>
               <Grid item container xs={6}>
-                hello
+                <Grid
+                  item
+                  xs={12}
+                  style={{
+                    textAlign: "center",
+                    fontSize: "15px",
+                  }}
+                >
+                  NTL Representative Signature
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  style={{ fontSize: "15px", paddingLeft: "5px" }}
+                >
+                  Lahore
+                </Grid>
+                <Grid item container xs={12} borderTop="1px solid black">
+                  <Grid
+                    item
+                    container
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      fontSize: "14px",
+                    }}
+                  >
+                    Track this Shipment via
+                  </Grid>
+                  <Grid
+                    item
+                    container
+                    style={{
+                      fontSize: "18px",
+                      fontWeight: 700,
+                      color: "black",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    www.rcsxpress.com
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item container xs={6}>
-            hello
+          <Grid item container xs={6} direction={"column"} padding="0px 10px">
+            <Grid
+              item
+              container
+              display={"flex"}
+              border="1px solid black"
+              alignItems={"center"}
+              justifyContent={"space-evenly"}
+            >
+              <Grid item>
+                <Typography
+                  style={{
+                    fontWeight: 900,
+                    fontSize: "20px",
+                    lineHeight: "20px",
+                  }}
+                >
+                  International Air Waybill
+                </Typography>
+              </Grid>
+              <Grid item>
+                <img
+                  src={Logo1}
+                  alt="logo"
+                  width={"100px"}
+                  height={"70px"}
+                  style={{ objectFit: "contain" }}
+                />
+              </Grid>
+            </Grid>
+            <Grid item container>
+              International Air Waybill
+            </Grid>
           </Grid>
         </Grid>
       </Box>
